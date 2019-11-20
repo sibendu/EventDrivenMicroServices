@@ -1,5 +1,7 @@
 # Event Driven MicroServices - A Reference implementation
 
+https://www.linkedin.com/pulse/microservice-event-driven-architecture-containers-devops-sibendu-das/
+
 This is a data service for managing "Event" objects; provides usual CRUD operations.
 
 An event object has an event code, and collection of parameters (name-value pairs) -> look at BaseEvent.java  
