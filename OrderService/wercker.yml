@@ -1,0 +1,34 @@
+# docker box definition
+box: java
+
+# defining the dev pipeline
+dev:
+  steps:
+    - script:
+      name: gradle bootRun
+      code: |
+        ./gradlew bootRun
+
+# Build definition
+build:
+  # The steps that will be executed on build
+  steps:
+    # A step that changes gradlew permission
+    - script:
+        name: chmod +x gradlew
+        code: |
+          chmod +x gradlew
+    # A step that executes `gradle build` command
+    - script:
+        name: gradle build
+        code: |
+          ./gradlew --full-stacktrace -q --project-cache-dir=$WERCKER_CACHE_DIR build
+push:
+  steps:
+    # Push to public docker repo
+    - internal/docker-push: 
+        username: $DOCKER_USERNAME
+        password: $DOCKER_PASSWORD
+        tag:  my-amazing-tag
+        repository: $DOCKER_REPOSITORY
+        registry: https://registry.hub.docker.com

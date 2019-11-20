@@ -1,0 +1,64 @@
+buildscript {
+	ext {
+		springBootVersion = '1.4.3.RELEASE'
+	}
+	repositories {
+		maven { url "http://repo.spring.io/libs-snapshot-local" }
+		mavenCentral()
+		jcenter()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'spring-boot'
+
+jar {
+	baseName = 'EventService'
+	version = '1.0'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	maven { url "http://repo.spring.io/libs-snapshot-local" }
+		mavenCentral()
+		jcenter()
+}
+
+
+dependencies {
+	
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+	
+compile('org.springframework.cloud:spring-cloud-starter-eureka')
+
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+
+	compile('org.springframework.boot:spring-boot-starter-web')
+
+compile("com.vaadin:vaadin-spring-boot-starter:1.0.0")
+
+
+	
+   //swagger jars
+    compile("io.springfox:springfox-swagger2:2.5.0")
+    compile("io.springfox:springfox-swagger-ui:2.5.0")
+
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:Camden.SR2"
+		
+		mavenBom 'com.vaadin:vaadin-bom:7.6.4'
+
+	}
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '2.9'
+}
